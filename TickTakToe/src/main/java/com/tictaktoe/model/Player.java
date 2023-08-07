@@ -2,7 +2,7 @@ package com.tictaktoe.model;
 
 import java.util.Scanner;
 
-public class Player {
+public abstract class Player {
     
     private String name;
     private char symbol;
@@ -29,11 +29,5 @@ public class Player {
     }
 
 
-    public Pair<Integer,Integer> nextMove(Board board){
-        Scanner sc = new Scanner(System.in);
-        System.out.println(name+"'s turn, please enter rwo and column");
-        int row = sc.nextInt();
-        int col = sc.nextInt();
-        return new Pair<>(row,col);
-    }
+    public abstract Pair<Integer,Integer> nextMove(Board board);
 }

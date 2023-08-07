@@ -47,4 +47,9 @@ public class Cell {
     public void setCellStatus(CellStatus cellStatus) {
         this.cellStatus = cellStatus;
     }
+
+    public void remove(){
+        this.cellStatus = CellStatus.AVAILABLE;
+        this.player = null;
+    }
 }

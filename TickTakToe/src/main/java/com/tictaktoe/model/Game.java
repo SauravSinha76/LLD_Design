@@ -92,6 +92,28 @@ public class Game {
     private boolean checkForDraw(){
         return moves.size() == board.getSize() * board.getSize();
     }
+
+    public void undo(){
+        int lastPlayerIndex = (currentPlayerIndex + players.size() -1 ) % players.size();
+        Player lastPlayer = players.get(lastPlayerIndex);
+        if((lastPlayer instanceof HumanPlayer)){
+            // This is a human player, you can ask for undo
+            HumanPlayer hp = (HumanPlayer) lastPlayer;
+            if(hp.undo()){
+                Move lastMove = moves.remove(moves.size() - 1);
+                Cell cell = lastMove.getCell();
+                cell.remove();
+                this.playerWinStatergy.handleUndo(lastMove);
+                currentPlayerIndex = lastPlayerIndex;
+                System.out.println("Board after undo:");
+                board.display();
+
+            } else {
+
+            }
+
+        }
+    }
     private boolean validate(Pair<Integer,Integer> nextMove){
         boolean isValidCell = 0 <= nextMove.getKey() && nextMove.getKey() < board.getSize() &&
             0 <= nextMove.getValue() && nextMove.getValue() < board.getSize();

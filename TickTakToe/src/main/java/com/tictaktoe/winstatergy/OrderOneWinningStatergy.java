@@ -59,4 +59,30 @@ public class OrderOneWinningStatergy implements PlayerWinStatergy{
         return wonByRow || wonByCol || wonByDiagonal || wonByAntiDiagonal;
 
     }
+
+    @Override
+    public void handleUndo(Move move) {
+        char symbol = move.getPlayer().getSymbol();
+        int row = move.getCell().getRow();
+        int col = move.getCell().getCol();
+
+        //Update the maps
+        Map<Character, Integer> map = rows.get(row);
+        map.put(symbol, map.get(symbol) - 1);
+
+        map = cols.get(col);
+        map.put(symbol, map.get(symbol) - 1);
+
+        boolean cellExistsOnDiagonal = row == col;
+        int n = rows.size();
+        boolean cellExistsOnReverseDiagonal = (row + col == n - 1);
+
+        if(cellExistsOnDiagonal){
+            diagonal.put(symbol, diagonal.get(symbol) - 1);
+        }
+        if(cellExistsOnReverseDiagonal){
+            antiDiagonal.put(symbol, antiDiagonal.get(symbol) - 1);
+        }
+
+    }
 }

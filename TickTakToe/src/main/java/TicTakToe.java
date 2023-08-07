@@ -16,7 +16,7 @@ public class TicTakToe {
             String name = sc.next();
             System.out.println("Enter the symbol for the player");
             char symbol = sc.next().charAt(0);
-            players.add(new Player(name,symbol));
+            players.add(new HumanPlayer(name,symbol));
         }
         System.out.println("Does it have bot? Y/N");
         String res = sc.next();
@@ -25,9 +25,14 @@ public class TicTakToe {
         }
         GameController gameController = new GameController();
         Game game = gameController.getGame(players);
-        
+        boolean isFirstMove = true;
         while (game.getGameStatus().equals(GameStatus.IN_PROGRESS)){
             gameController.makeMove(game);
+            if(!isFirstMove){
+                gameController.undo(game);
+            } else {
+                isFirstMove = false;
+            }
             gameController.display(game);
         }
 
