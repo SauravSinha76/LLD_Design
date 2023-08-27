@@ -79,7 +79,13 @@ public class App
         slabHashMap.put(3,new Slab(3,4,6,30,VehicalType.SEDAN));
         slabHashMap.put(4,new Slab(4,6,8,35,VehicalType.SEDAN));
         slabHashMap.put(5,new Slab(5,8,10,40,VehicalType.SEDAN));
-        SlabRepository slabRepository = new SlabRepository(slabHashMap);
+        SlabRepository slabRepository = new SlabRepository(new HashMap<Integer,Slab>(){{
+            put(1,new Slab(1,0,2,20,VehicalType.SEDAN));
+            put(2,new Slab(2,2,4,25,VehicalType.SEDAN));
+            put(3,new Slab(3,4,6,30,VehicalType.SEDAN));
+            put(4,new Slab(4,6,8,35,VehicalType.SEDAN));
+            put(5,new Slab(5,8,10,40,VehicalType.SEDAN));
+        }});
         SlabService slabService = new SlabService(slabRepository);
         InvoiceRepository invoiceRepository = new InvoiceRepository();
         InvoiceService invoiceService = new InvoiceService(invoiceRepository,gateService,ticketService,new InvoiceCalculationFactory(new WeekendInvoiceCalculation(slabService),new WeekdayInvoiceCalculation()));
